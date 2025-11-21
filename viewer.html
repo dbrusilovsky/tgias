@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,6 +71,8 @@
             font-size: 12px;
             transition: all 0.3s;
             border: 1px solid var(--primary-accent);
+            margin-left: 16px;
+
         }
 
         .home-button:hover {
@@ -80,6 +83,38 @@
 
         .file-input-wrapper {
             margin-bottom: 10px;
+        }
+
+        .sample-models {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid color-mix(in srgb, var(--highlight) 20%, transparent);
+        }
+
+        .sample-models h3 {
+            font-size: 13px;
+            margin-bottom: 10px;
+            color: var(--highlight);
+        }
+
+        .sample-model-button {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background: var(--surface);
+            color: var(--text-primary);
+            border: 1px solid color-mix(in srgb, var(--highlight) 30%, transparent);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .sample-model-button:hover {
+            background: var(--primary-accent);
+            border-color: var(--highlight);
         }
 
         input[type="file"] {
@@ -268,11 +303,17 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
+
 <body>
     <div id="container">
         <div id="controls">
@@ -284,6 +325,11 @@
                 <label for="file-input" class="file-label">Choose 3D Model</label>
                 <input type="file" id="file-input" accept=".glb,.gltf,.obj,.fbx">
                 <div id="file-name"></div>
+            </div>
+            <div class="sample-models">
+                <h3>Sample Models</h3>
+                <button class="sample-model-button" data-model="./helix_bridge.glb">Helix Bridge</button>
+                <button class="sample-model-button" data-model="./nyc_the_high_bridge.glb">NYC High Bridge</button>
             </div>
             <div id="instructions">
                 <strong>Controls:</strong>
@@ -465,7 +511,7 @@
             }
         }
 
-        function loadModel(file) {
+        function loadModel(fileOrUrl) {
             showLoading();
 
             if (currentModel) {
@@ -478,7 +524,9 @@
                 boundingBoxHelper = null;
             }
 
-            const fileURL = URL.createObjectURL(file);
+            // Handle both File objects and URL strings
+            const isFile = fileOrUrl instanceof File;
+            const fileURL = isFile ? URL.createObjectURL(fileOrUrl) : fileOrUrl;
             const loader = new GLTFLoader();
 
             loader.load(
@@ -500,10 +548,19 @@
                     // Don't move the model - instead, point the camera at it
                     // Calculate appropriate camera distance based on model size
                     const maxDim = Math.max(size.x, size.y, size.z);
-                    const distance = maxDim * 2.5;
+                    const distance = maxDim * 1.5;
+
+                    // Update camera clipping planes based on model size
+                    camera.near = maxDim * 0.01;
+                    camera.far = maxDim * 10;
+                    camera.updateProjectionMatrix();
+
+                    // Update controls to allow zooming out to 4x the model size
+                    controls.maxDistance = maxDim * 4;
+                    controls.minDistance = maxDim * 0.1;
 
                     // Position camera relative to the model's center
-                    const offset = new THREE.Vector3(distance, distance * 0.7, distance);
+                    const offset = new THREE.Vector3(distance, distance * 0.5, distance);
                     camera.position.copy(center).add(offset);
 
                     // Point orbit controls at the model's center
@@ -533,7 +590,8 @@
                     // Update bounding box if checkbox is checked
                     updateBoundingBoxHelper();
 
-                    URL.revokeObjectURL(fileURL);
+                    // Only revoke object URL if it was created from a File
+                    if (isFile) URL.revokeObjectURL(fileURL);
                     hideLoading();
                 },
                 (progress) => {
@@ -542,7 +600,7 @@
                 (error) => {
                     console.error('Error loading model:', error);
                     alert('Error loading model. Please make sure the file is a valid GLB or GLTF file.');
-                    URL.revokeObjectURL(fileURL);
+                    if (isFile) URL.revokeObjectURL(fileURL);
                     hideLoading();
                 }
             );
@@ -659,8 +717,19 @@
             }
         });
 
+        // Sample model buttons
+        document.querySelectorAll('.sample-model-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const modelPath = button.getAttribute('data-model');
+                const modelName = button.textContent;
+                document.getElementById('file-name').textContent = `Selected: ${modelName}`;
+                loadModel(modelPath);
+            });
+        });
+
         init();
         setupSliders();
     </script>
 </body>
+
 </html>
