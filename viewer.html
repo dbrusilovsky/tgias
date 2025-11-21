@@ -548,7 +548,7 @@
                     // Don't move the model - instead, point the camera at it
                     // Calculate appropriate camera distance based on model size
                     const maxDim = Math.max(size.x, size.y, size.z);
-                    const distance = maxDim * 1.5;
+                    const distance = maxDim;
 
                     // Update camera clipping planes based on model size
                     camera.near = maxDim * 0.01;
@@ -560,7 +560,7 @@
                     controls.minDistance = maxDim * 0.1;
 
                     // Position camera relative to the model's center
-                    const offset = new THREE.Vector3(distance, distance * 0.5, distance);
+                    const offset = new THREE.Vector3(distance*0.3, distance * 0.3, distance*0.3);
                     camera.position.copy(center).add(offset);
 
                     // Point orbit controls at the model's center
