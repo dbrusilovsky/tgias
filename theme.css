@@ -1,0 +1,12 @@
+/* TGIAS Theme Colors - Role-Based Variables */
+:root {
+    /* All Colors - Fully adjustable */
+    --background: #121212;
+    --primary-accent: #1f562a;
+    --text-primary: #F5F1E8;
+    --text-secondary: #f2cd8d;
+    --accent: #919191;
+    --highlight: #e2b05a;
+    --surface: #545B5E;
+}
+

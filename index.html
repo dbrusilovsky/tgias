@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="TGIAS, LLC - Delivering effective software solutions to cross-domain problems. Based in Beckley, West Virginia.">
+    <title>TGIAS, LLC - Insight. Innovation. Impact.</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="theme.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: color-mix(in srgb, var(--background) 65%, transparent);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid color-mix(in srgb, var(--highlight) 20%, transparent);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--highlight);
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--highlight);
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+
+            background:
+                linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0) 0%,
+                    rgba(0, 0, 0, 0) 85%,
+                    #121212 100%),
+                url('newrivergorge_shutterstock-915x515.jpg') center/cover no-repeat;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: var(--highlight);
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            color: var(--text-primary);
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--primary-accent);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-accent);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            border-color: var(--highlight);
+            color: var(--highlight);
+            transform: translateY(-2px);
+        }
+
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--highlight);
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .value-card {
+            background: var(--surface);
+            padding: 35px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid color-mix(in srgb, var(--highlight) 10%, transparent);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--highlight);
+            box-shadow: 0 10px 30px color-mix(in srgb, var(--primary-accent) 20%, transparent);
+        }
+
+        .value-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--highlight);
+        }
+
+        .value-card p {
+            color: var(--text-primary);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 20px;
+            stroke: var(--accent);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .current-work {
+            background: var(--surface);
+            padding: 60px 40px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            margin-top: 40px;
+        }
+
+        .current-work h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--highlight);
+        }
+
+        .current-work p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .about-section {
+            background: linear-gradient(to bottom, var(--background), var(--primary-accent));
+        }
+
+        .about-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        footer {
+            background: color-mix(in srgb, var(--background) 95%, transparent);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid color-mix(in srgb, var(--highlight) 20%, transparent);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .footer-content p {
+            margin-bottom: 10px;
+        }
+
+        .footer-content a {
+            color: var(--highlight);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-content a:hover {
+            color: var(--text-primary);
+        }
+
+        #color-picker-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--surface);
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid var(--highlight);
+            box-shadow: 0 10px 40px color-mix(in srgb, var(--background) 50%, transparent);
+            z-index: 10000;
+            display: none;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .color-picker-panel-header {
+            display: flex;
+            align-items: center;
+            background: color-mix(in srgb, var(--background) 20%, transparent);
+            margin-bottom: 16px;
+        }
+        #color-picker-panel.visible {
+            display: block;
+        }
+
+        #color-picker-panel h3 {
+            color: var(--highlight);
+            font-size: 18px;
+            text-align: center;
+            cursor: move;
+            user-select: none;
+            padding: 10px;
+      
+            border-radius: 6px 6px 0 0;
+        }
+
+        .color-input-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-input-group label {
+            flex: 1;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .color-input-group input[type="color"] {
+            width: 50px;
+            height: 35px;
+            border: 2px solid var(--highlight);
+            border-radius: 4px;
+            cursor: pointer;
+            background: none;
+        }
+
+        .color-input-group input[type="text"] {
+            width: 80px;
+            padding: 5px 8px;
+            background: var(--background);
+            color: var(--text-primary);
+            border: 1px solid var(--text-secondary);
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: monospace;
+        }
+
+        .close-panel {
+
+            background: var(--primary-accent);
+            color: var(--text-primary);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            height: 100%;
+                margin: 0 12px 0 24px;
+        }
+
+        .close-panel:hover {
+            background: var(--highlight);
+            color: var(--background);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 26px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .current-work {
+                padding: 40px 25px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            #color-picker-panel {
+                width: 90%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">TGIAS, LLC</div>
+            <nav>
+                <a href="#about">About</a>
+                <a href="current-work.html">Current Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Insight. Innovation. Impact.</h1>
+            <p>Creating the technology of tomorrow, today.</p>
+            <a href="current-work.html" class="cta-button">See our work</a>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <h2 class="section-title">Who We Are</h2>
+        <p>We are a multidisciplinary team delivering effective software solutions to cross-domain problems. Our team
+            consists of engineers, AI specialists, and Human Sciences experts, bringing a unique approach that
+            integrates technical expertise with an understanding of human factors.</p>
+        <br>
+        <p>With extensive experience in designing, integrating, and optimizing complex systems, we ensure that solutions
+            function seamlessly for a diverse range of customers. Through our expertise and commitment to innovation, we
+            strive to develop revolutionary systems that improve user safety and well-being.</p>
+    </section>
+
+    <section>
+        <h2 class="section-title">Why Choose TGIAS</h2>
+        <div class="value-grid">
+            <div class="value-card">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                <h3>User-Friendly Design</h3>
+                <p>Technology that requires minimal training and integrates naturally into existing workflows.</p>
+            </div>
+            <div class="value-card">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <path d="M3 9h18M9 21V9" />
+                </svg>
+                <h3>Open Standards</h3>
+                <p>Built on interoperability, not vendor lock-in. Solutions that work with your existing infrastructure.
+                </p>
+            </div>
+            <div class="value-card">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4M12 8h.01" />
+                </svg>
+                <h3>Government-Backed</h3>
+                <p>Funded by federal research programs, ensuring rigorous standards and accountability.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Active Research & Development</h2>
+        <div class="current-work">
+            <h3>SBIR Phase I Research</h3>
+            <p>We're currently in Phase I of our SBIR-funded research project, developing next-generation tools for
+                infrastructure professionals in partnership with the U.S. Department of Transportation.</p>
+            <br>
+            <p>This work represents our commitment to advancing infrastructure technology through rigorous research and
+                practical innovation.</p>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <p>&copy; 2025 TGIAS, LLC. All rights reserved.</p>
+            <p>Beckley, West Virginia</p>
+            <p><a href="mailto:contact@tgias.com">contact@tgias.com</a></p>
+        </div>
+    </footer>
+
+    <div id="color-picker-panel">
+
+        <div class="color-picker-panel-header">
+               <h3>Color Theme Editor</h3>
+        <button class="close-panel" onclick="closeColorPanel()">Close</button>
+
+</div>
+        <h4
+            style="color: var(--highlight); font-size: 14px; margin-bottom: 10px; border-bottom: 1px solid color-mix(in srgb, var(--highlight) 20%, transparent); padding-bottom: 8px;">
+            Theme Colors</h4>
+
+        <div class="color-input-group">
+            <label>Background</label>
+            <input type="color" id="background-picker">
+            <input type="text" id="background-text">
+        </div>
+
+        <div class="color-input-group">
+            <label>Primary Accent</label>
+            <input type="color" id="primary-accent-picker">
+            <input type="text" id="primary-accent-text">
+        </div>
+
+        <div class="color-input-group">
+            <label>Text Primary</label>
+            <input type="color" id="text-primary-picker">
+            <input type="text" id="text-primary-text">
+        </div>
+
+        <div class="color-input-group">
+            <label>Text Secondary</label>
+            <input type="color" id="text-secondary-picker">
+            <input type="text" id="text-secondary-text">
+        </div>
+
+        <div class="color-input-group">
+            <label>Accent</label>
+            <input type="color" id="accent-picker">
+            <input type="text" id="accent-text">
+        </div>
+
+        <div class="color-input-group">
+            <label>Highlight</label>
+            <input type="color" id="highlight-picker">
+            <input type="text" id="highlight-text">
+        </div>
+
+        <div class="color-input-group">
+            <label>Surface</label>
+            <input type="color" id="surface-picker">
+            <input type="text" id="surface-text">
+        </div>
+    </div>
+
+    <script>
+        // Konami code: up up down down
+        let konamiSequence = [];
+        const targetSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown'];
+
+        document.addEventListener('keydown', (e) => {
+            konamiSequence.push(e.key);
+
+            // Keep only the last 4 keys
+            if (konamiSequence.length > 4) {
+                konamiSequence.shift();
+            }
+
+            // Check if sequence matches
+            if (konamiSequence.length === 4 &&
+                konamiSequence.every((key, i) => key === targetSequence[i])) {
+                toggleColorPanel();
+                konamiSequence = []; // Reset
+            }
+        });
+
+        function toggleColorPanel() {
+            const panel = document.getElementById('color-picker-panel');
+            panel.classList.toggle('visible');
+        }
+
+        function closeColorPanel() {
+            const panel = document.getElementById('color-picker-panel');
+            panel.classList.remove('visible');
+        }
+
+        // Make panel draggable
+        (function () {
+            const panel = document.getElementById('color-picker-panel');
+            const header = panel.querySelector('h3');
+            let isDragging = false;
+            let offsetX;
+            let offsetY;
+
+            header.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                if (e.target === header) {
+                    isDragging = true;
+                    // Get the current position of the panel
+                    const rect = panel.getBoundingClientRect();
+                    // Calculate offset from mouse to panel's top-left corner
+                    offsetX = e.clientX - rect.left;
+                    offsetY = e.clientY - rect.top;
+                }
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    // Remove the transform so we can position with left/top
+                    panel.style.transform = 'none';
+                    // Position panel so the mouse stays at the same relative position
+                    panel.style.left = (e.clientX - offsetX) + 'px';
+                    panel.style.top = (e.clientY - offsetY) + 'px';
+                }
+            }
+
+            function dragEnd(e) {
+                isDragging = false;
+            }
+        })();
+
+        // Color picker setup
+        const colors = [
+            { name: 'background', variable: '--background' },
+            { name: 'primary-accent', variable: '--primary-accent' },
+            { name: 'text-primary', variable: '--text-primary' },
+            { name: 'text-secondary', variable: '--text-secondary' },
+            { name: 'accent', variable: '--accent' },
+            { name: 'highlight', variable: '--highlight' },
+            { name: 'surface', variable: '--surface' }
+        ];
+
+        // Initialize color picker values from CSS variables
+        colors.forEach(color => {
+            const picker = document.getElementById(`${color.name}-picker`);
+            const textInput = document.getElementById(`${color.name}-text`);
+
+            if (!picker || !textInput) return;
+
+            // Get current value from CSS variable
+            const currentColor = getComputedStyle(document.documentElement)
+                .getPropertyValue(color.variable).trim();
+
+            // Set initial values
+            picker.value = currentColor;
+            textInput.value = currentColor;
+
+            // Update when color picker changes
+            picker.addEventListener('input', (e) => {
+                const newColor = e.target.value;
+                textInput.value = newColor;
+                document.documentElement.style.setProperty(color.variable, newColor);
+            });
+
+            // Update when text input changes
+            textInput.addEventListener('input', (e) => {
+                const newColor = e.target.value.trim();
+                if (/^#[0-9A-F]{6}$/i.test(newColor)) {
+                    picker.value = newColor;
+                    document.documentElement.style.setProperty(color.variable, newColor);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
